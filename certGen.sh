@@ -1,0 +1,1 @@
+openssl req -x509 -newkey rsa:2048 -sha256 -days 365 -nodes -keyout ./certs/tls.key -out ./certs/tls.crt -subj "/CN=<your app>.local" -addext "subjectAltName=DNS:<your app>.local"

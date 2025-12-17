@@ -1,0 +1,25 @@
+replicaCount: 1
+
+image:
+  repository: nginx
+  tag: stable
+  pullPolicy: IfNotPresent
+
+service:
+  httpsPort: 443
+  httpPort: 80
+
+# If true, the chart will create a secret from files in the 'files/' directory
+secret:
+  create: true
+  name: "nginx-ssl-certs"
+
+# Nginx Configuration
+nginxConfig:
+  clientMaxBodySize: "5g"
+  proxyPass: "http://<your app>:<your app port>"
+  sslCertPath: "/etc/nginx/ssl/tls.crt"
+  sslKeyPath: "/etc/nginx/ssl/tls.key"
+
+# The name of the secret containing tls.crt and tls.key
+tlsSecretName: <yourapp>-tls-secret

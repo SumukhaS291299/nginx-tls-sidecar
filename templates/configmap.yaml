@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  default.conf: |
+    server {
+        listen {{ .Values.service.httpsPort }} ssl;
+        server_name _;
+
+        client_max_body_size {{ .Values.nginxConfig.clientMaxBodySize }};
+
+        ssl_certificate /etc/nginx/ssl/tls.crt;
+        ssl_certificate_key /etc/nginx/ssl/tls.key;
+
+        location / {
+            proxy_pass {{ .Values.nginxConfig.proxyPass }};
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+    }
+
+    server {
+        listen {{ .Values.service.httpPort }};
+        server_name _;
+
+        location /healthz {
+            return 200 'ok';
+            add_header Content-Type text/plain;
+        }
+    }
