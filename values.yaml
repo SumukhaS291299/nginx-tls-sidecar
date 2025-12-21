@@ -17,7 +17,7 @@ secret:
 # Nginx Configuration
 nginxConfig:
   clientMaxBodySize: "5g"
-  proxyPass: "http://<your app>:<your app port>"
+  proxyPass: "http://<your app>:<your app port>"  # No Trailing slash in proxy_pass [ http://myapp:port ✔] and [ http://myapp:port/ ❌]
   sslCertPath: "/etc/nginx/ssl/tls.crt"
   sslKeyPath: "/etc/nginx/ssl/tls.key"
 
