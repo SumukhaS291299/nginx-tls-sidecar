@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}
   labels:
-    app.kubernetes.io/name: {{ .Release.Name }}
+    app: {{ .Release.Name }}
 spec:
   type: ClusterIP
   selector:
-    app.kubernetes.io/name: {{ .Release.Name }}
+    app: {{ .Release.Name }}
   ports:
     - name: https
       port: {{ .Values.service.httpsPort }}
